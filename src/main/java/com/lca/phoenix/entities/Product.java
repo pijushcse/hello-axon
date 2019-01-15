@@ -14,6 +14,12 @@ public class Product implements Serializable {
     private String product;
     private OrderStatus orderStatus;
 
+    public Product(String orderId, String product, OrderStatus orderStatus) {
+        this.orderId = orderId;
+        this.product = product;
+        this.orderStatus = orderStatus;
+    }
+
     public Product() {
         super();
     }
