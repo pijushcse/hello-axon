@@ -19,13 +19,16 @@ import java.util.logging.LogManager;
 @EntityScan(basePackages = {
         "com.lca.phoenix.*",
         "org.axonframework.eventhandling.saga.**",
-        "org.axonframework.eventsourcing.eventstore.*"
+        "org.axonframework.eventsourcing.eventstore.*",
+        "org.axonframework.eventhandling.tokenstore.*"
 })
 @EnableTransactionManagement
 
 public class App {
 
     Logger log = LoggerFactory.getLogger(App.class);
+
+
 
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);

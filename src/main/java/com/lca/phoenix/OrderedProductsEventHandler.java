@@ -1,21 +1,24 @@
 package com.lca.phoenix;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.lca.phoenix.entities.Product;
 import com.lca.phoenix.entities.ProductRepository;
-import com.lca.phoenix.queries.OrderStatus;
 import com.lca.phoenix.events.OrderConfirmedEvent;
 import com.lca.phoenix.events.OrderPlacedEvent;
 import com.lca.phoenix.events.OrderShippedEvent;
 import com.lca.phoenix.queries.FindAllOrderedProductsQuery;
+import com.lca.phoenix.queries.OrderStatus;
+import com.lca.phoenix.queries.OrderedProduct;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ReplayStatus;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lca.phoenix.queries.OrderedProduct;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderedProductsEventHandler {
@@ -26,7 +29,7 @@ public class OrderedProductsEventHandler {
     ProductRepository repository;
 
     @EventHandler
-    public void on(OrderPlacedEvent event) {
+    public void on(OrderPlacedEvent event, ReplayStatus status) {
         String orderId = event.getOrderId();
         orderedProducts.put(orderId, new OrderedProduct(orderId, event.getProduct()));
         Product p = new Product(orderId, event.getProduct());
